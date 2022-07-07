@@ -22,3 +22,8 @@ type History struct {
 	Version     string
 	Description string
 }
+
+type Image struct {
+	Name    string
+	Version string
+}

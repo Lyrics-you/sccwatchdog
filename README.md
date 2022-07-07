@@ -54,11 +54,11 @@ Global Flags:
 ```shell
 [root@centos-7-03 sccwatchdog]# ./swd version
 Name          : SCCWatchDog🐶
-Version       : 0.4.0
+Version       : 0.5.0
 Email         : Leyuan.Jia@Outlook.com
 [root@centos-7-03 sccwatchdog]# ./swd version -d
 Name          : SCCWatchDog🐶
-Version       : 0.4.0
+Version       : 0.5.0
 Description   : add restart deployment and set image function
 ```
 
@@ -99,24 +99,26 @@ Global Flags:
 Watch all deployments in namespace by t second
 eg.: swd watch [-n <namespace>(default:"default")] [-s t]
 Watch specified deployments "deploy1 deploy2" in namespace by t second
-eg.: swd watch [-n <namespace>(default:"default")] -d "deploy1 deploy2" [-s t]
+eg.: swd watch [-n <namespace>(default:"default")] [-d "deploy1 deploy2"] [-s t]
+Not Watch expect deployments "deploy2" in namespace by t second
+eg.: swd watch [-n <namespace>(default:"default")] [-d "deploy1 deploy2"] [-e "deploy2"] [-s t]
 
 Usage:
   swd watch [flags]
 
 Flags:
   -d, --depolyment string   scc depolyment
+  -e, --except string       expect depolyment
   -h, --help                help for watch
   -n, --namespace string    scc namespace
   -s, --second int          times interval (second)
 
 Global Flags:
   -v, --version   sccwatchdog version
-
 ```
 
 ```shell
-[root@centos-7-03 sccwatchdog]# ./swd watch -n mergemultx -d "mergemultx1 mergemultx2" -s 5
+[root@centos-7-03 sccwatchdog]# ./swd watch -n mergemultx -d "mergemultx1 mergemultx2 mergemultx3" -c "mergemultx3" -s 5
 [22-07-05 14:44:45.756][dog/watch.go:49 @WatchStart()][INFO]mergemultx1 has changed,loveyoutruehappy/mergemultx:v1.3==>loveyoutruehappy/mergemultx:v1.2 at 2022-07-05 14:44:43 CST
 [22-07-05 14:44:50.885][dog/watch.go:49 @WatchStart()][INFO]mergemultx1 has restarted,loveyoutruehappy/mergemultx:v1.2 at 2022-07-05 14:44:48 CST,ReplicaSet "mergemultx1-675d478458" is progressing.
 [22-07-05 14:45:36.483][dog/watch.go:49 @WatchStart()][INFO]mergemultx2 has restarted,loveyoutruehappy/mergemultx:v1.2 at 2022-07-05 14:45:31 CST,Deployment does not have minimum availability.

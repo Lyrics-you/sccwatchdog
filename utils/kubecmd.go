@@ -168,6 +168,13 @@ func GetDeploymentAllInfos(namespace string, chi chan model.GetInfo, wg *sync.Wa
 		return
 	}
 	imageAndtime := ExtractString(out)
+	if imageAndtime == "" {
+		chi <- model.GetInfo{
+			Info:  "[]",
+			Error: errors.New(fmt.Sprintf("No resources found in %s namespace", namespace)),
+		}
+		return
+	}
 	chi <- model.GetInfo{
 		Info:  imageAndtime,
 		Error: err,
@@ -204,11 +211,10 @@ func GetAllDeploymentsInfos(namespace string) ([]model.Deployment, error) {
 	return deployments, nil
 }
 
-func GetDeploymentInfos(namespace, deployment string) ([]model.Deployment, error) {
+func GetDeploymentInfos(namespace string, deploys []string) ([]model.Deployment, error) {
 	if namespace == "" {
 		namespace = "default"
 	}
-	deploys := strings.Split(deployment, " ")
 	deployments := []model.Deployment{}
 
 	for _, deploy := range deploys {

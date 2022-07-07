@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"sccwatchdog/utils"
+	"strings"
 
 	"github.com/spf13/cobra"
 )
@@ -26,7 +27,6 @@ eg.: swd show [-n <namespace>(default:"default")] -d "deploy1 deploy2"`,
 		} else {
 			showDeployments(namespace, deployment)
 		}
-
 	},
 }
 
@@ -37,7 +37,8 @@ func init() {
 }
 
 func showDeployments(namespace, depolyment string) {
-	deploy, err := utils.GetDeploymentInfos(namespace, depolyment)
+	deploys := strings.Split(depolyment, " ")
+	deploy, err := utils.GetDeploymentInfos(namespace, deploys)
 	if err != nil {
 		log.Errorf("%v", err)
 		return

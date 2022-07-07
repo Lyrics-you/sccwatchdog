@@ -14,6 +14,9 @@ func ExtractString(str string) string {
 	if strings.HasSuffix(str, `"`) {
 		end -= 1
 	}
+	if end < start {
+		return ""
+	}
 	return str[start:end]
 }
 

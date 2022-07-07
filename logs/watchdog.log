@@ -1,0 +1,6 @@
+[22/07/05 00:34:35.126][cmd/set.go:39 @setDeploymentImage()][INFO]mergemultx1(mergemultx) image not changed
+[22/07/05 00:34:38.470][cmd/set.go:39 @setDeploymentImage()][INFO]deployment.apps/mergemultx1 image updated
+[22/07/05 00:34:38.509][dog/watch.go:92 @WatchAllStart()][INFO]mergemultx1 has changed,loveyoutruehappy/mergemultx:v1.3->loveyoutruehappy/mergemultx:v1.2 at 2022-07-05 00:34:38 CST
+[22/07/05 00:34:40.745][dog/watch.go:92 @WatchAllStart()][INFO]mergemultx1 has restarted at 2022-07-05 00:34:40 CST,ReplicaSet "mergemultx1-675d478458" is progressing.
+[22/07/05 00:34:42.806][dog/watch.go:92 @WatchAllStart()][INFO]mergemultx1 has restarted at 2022-07-05 00:34:42 CST,ReplicaSet "mergemultx1-675d478458" is progressing.
+[22/07/05 00:34:45.405][dog/watch.go:92 @WatchAllStart()][INFO]mergemultx1 has restarted at 2022-07-05 00:34:45 CST,ReplicaSet "mergemultx1-675d478458" has successfully progressed.
