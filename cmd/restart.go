@@ -24,8 +24,8 @@ eg.: swd restart -n <namespace> -d <deployment> [-c <container>(default:first co
 func init() {
 	rootCmd.AddCommand(restartCmd)
 	restartCmd.PersistentFlags().StringVarP(&namespace, "namespace", "n", "", "scc namespace")
-	restartCmd.PersistentFlags().StringVarP(&deployment, "depolyment", "d", "", "scc depolyment")
-	restartCmd.PersistentFlags().StringVarP(&container, "container", "c", "", "depolyment container")
+	restartCmd.PersistentFlags().StringVarP(&deployment, "deployment", "d", "", "scc deployment")
+	restartCmd.PersistentFlags().StringVarP(&container, "container", "c", "", "deployment container")
 }
 
 func restartDeployment(namespace, deployment, container string) {

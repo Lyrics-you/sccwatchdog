@@ -30,7 +30,7 @@ func KubeCommand(exCommand []string, arg ...string) (string, error) {
 	return strings.TrimSpace(string(out)), nil
 }
 
-func GetAllDepolymentName(namespace string) ([]string, error) {
+func GetAlldeploymentName(namespace string) ([]string, error) {
 	if namespace == "" {
 		return []string{}, ErrNamespaceEmpty
 	}
@@ -79,7 +79,7 @@ func getDeploymentInfoByJsonPath(namespace, deployment, jsonpath string, chi cha
 	return
 }
 
-func GetDepolymentImage(namespace, deployment string) (string, error) {
+func GetdeploymentImage(namespace, deployment string) (string, error) {
 	chi := make(chan model.GetInfo, 1)
 	var wg sync.WaitGroup
 	wg.Add(1)
@@ -106,7 +106,7 @@ func GetDeploymentContainers(namespace, deployment string) ([]string, error) {
 	return containers, nil
 }
 
-func GetDepolymentLastUpdateTime(namespace, deployment string) (string, error) {
+func GetdeploymentLastUpdateTime(namespace, deployment string) (string, error) {
 	chi := make(chan model.GetInfo, 1)
 	var wg sync.WaitGroup
 	wg.Add(1)
@@ -142,7 +142,7 @@ func GetDeploymentImageAndLastUpdateTime(namespace, deployment string) (string, 
 	return image, time, nil
 }
 
-func GetDepolymentMessage(namespace, deployment string) (string, error) {
+func GetdeploymentMessage(namespace, deployment string) (string, error) {
 	chi := make(chan model.GetInfo, 1)
 	var wg sync.WaitGroup
 	wg.Add(1)

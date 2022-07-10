@@ -66,7 +66,7 @@ func watchDeployments(deploy *model.Deployment, s int, chi chan model.GetInfo) {
 			deploy.Image = image
 			deploy.LastUpdateTime = time
 		} else if time != deploy.LastUpdateTime {
-			message, _ := utils.GetDepolymentMessage(deploy.Namespace, deploy.Name)
+			message, _ := utils.GetdeploymentMessage(deploy.Namespace, deploy.Name)
 			chi <- model.GetInfo{
 				Info:  restartedInfo(deploy.Name, deploy.Image, time, message),
 				Error: err,
@@ -77,7 +77,7 @@ func watchDeployments(deploy *model.Deployment, s int, chi chan model.GetInfo) {
 	}
 }
 
-func WatchStart(deploys []model.Deployment, s int) {
+func watchStart(deploys []model.Deployment, s int) {
 	chi := make(chan model.GetInfo, len(deploys))
 	for _, deploy := range deploys {
 		go watchDeployments(&deploy, s, chi)
@@ -94,7 +94,7 @@ func WatchStart(deploys []model.Deployment, s int) {
 	}
 }
 
-func GetDeploymentInfoMap(deploys []model.Deployment) map[string]model.Deployment {
+func getDeploymentInfoMap(deploys []model.Deployment) map[string]model.Deployment {
 	deploysInfos := map[string]model.Deployment{}
 	for _, deploy := range deploys {
 		deploysInfos[deploy.Name] = deploy
@@ -118,7 +118,7 @@ func watchAllDeployments(deploysInfos map[string]model.Deployment, namespace str
 				}
 				deploysInfos[deploy.Name] = deploy
 			} else if deploysInfos[deploy.Name].LastUpdateTime != deploy.LastUpdateTime {
-				message, _ := utils.GetDepolymentMessage(deploy.Namespace, deploy.Name)
+				message, _ := utils.GetdeploymentMessage(deploy.Namespace, deploy.Name)
 				chi <- model.GetInfo{
 					Info:  restartedInfo(deploy.Name, deploy.Image, deploy.LastUpdateTime, message),
 					Error: err,
@@ -130,9 +130,9 @@ func watchAllDeployments(deploysInfos map[string]model.Deployment, namespace str
 	}
 }
 
-func WatchAllStart(deploys []model.Deployment, namespace, expect string, s int) {
+func watchAllStart(deploys []model.Deployment, namespace, expect string, s int) {
 	chi := make(chan model.GetInfo, len(deploys))
-	deploysInfos := GetDeploymentInfoMap(deploys)
+	deploysInfos := getDeploymentInfoMap(deploys)
 	for _, eDeploy := range strings.Split(expect, " ") {
 		deploysInfos[eDeploy] = model.Deployment{}
 	}
@@ -147,4 +147,32 @@ func WatchAllStart(deploys []model.Deployment, namespace, expect string, s int) 
 			}
 		}
 	}
+}
+
+func WatchDeplolyments(namespace, deployment, except string, s int) {
+	realDeploys := []string{}
+	if except != "" {
+		for _, d := range strings.Split(deployment, " ") {
+			if !strings.Contains(except, d) {
+				realDeploys = append(realDeploys, d)
+			}
+		}
+	} else {
+		realDeploys = strings.Split(deployment, " ")
+	}
+	deploys, err := utils.GetDeploymentInfos(namespace, realDeploys)
+	if err != nil {
+		log.Errorf("%v", err)
+		return
+	}
+	watchStart(deploys, s)
+}
+
+func WatchAllDeplolyments(namespace, except string, s int) {
+	deploys, err := utils.GetAllDeploymentsInfos(namespace)
+	if err != nil {
+		log.Errorf("%v", err)
+		return
+	}
+	watchAllStart(deploys, namespace, except, s)
 }

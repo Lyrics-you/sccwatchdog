@@ -1,5 +1,10 @@
 package model
 
+type WatchDog struct {
+	Namespace  string
+	Deployment string
+}
+
 type Deployment struct {
 	Name           string
 	Namespace      string

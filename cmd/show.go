@@ -2,9 +2,7 @@ package cmd
 
 import (
 	"errors"
-	"fmt"
-	"sccwatchdog/utils"
-	"strings"
+	"sccwatchdog/dog"
 
 	"github.com/spf13/cobra"
 )
@@ -23,9 +21,9 @@ eg.: swd show [-n <namespace>(default:"default")] -d "deploy1 deploy2"`,
 			return
 		}
 		if deployment == "" {
-			showAllDeployments(namespace)
+			dog.ShowAllDeployments(namespace)
 		} else {
-			showDeployments(namespace, deployment)
+			dog.ShowDeployments(namespace, deployment)
 		}
 	},
 }
@@ -33,28 +31,5 @@ eg.: swd show [-n <namespace>(default:"default")] -d "deploy1 deploy2"`,
 func init() {
 	rootCmd.AddCommand(showCmd)
 	showCmd.PersistentFlags().StringVarP(&namespace, "namespace", "n", "", "scc namespace")
-	showCmd.PersistentFlags().StringVarP(&deployment, "depolyment", "d", "", "scc depolyment")
-}
-
-func showDeployments(namespace, depolyment string) {
-	deploys := strings.Split(depolyment, " ")
-	deploy, err := utils.GetDeploymentInfos(namespace, deploys)
-	if err != nil {
-		log.Errorf("%v", err)
-		return
-	}
-	for _, d := range deploy {
-		fmt.Printf("[%s/%s: (%s) @ %s]\n", d.Namespace, d.Name, d.Image, d.LastUpdateTime)
-	}
-}
-
-func showAllDeployments(namespace string) {
-	deploy, err := utils.GetAllDeploymentsInfos(namespace)
-	if err != nil {
-		log.Errorf("%v", err)
-		return
-	}
-	for _, d := range deploy {
-		fmt.Printf("[%s/%s: (%s) @ %s]\n", d.Namespace, d.Name, d.Image, d.LastUpdateTime)
-	}
+	showCmd.PersistentFlags().StringVarP(&deployment, "deployment", "d", "", "scc deployment")
 }

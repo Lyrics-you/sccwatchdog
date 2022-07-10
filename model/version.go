@@ -1,6 +1,14 @@
 package model
 
 var (
+	LOGO = `
+               _       _         _
+__      ____ _| |_ ___| |__   __| | ___   __ _
+\ \ /\ / / _  | __/ __| '_ \ / _  |/ _ \ / _  |
+ \ V  V / (_| | || (__| | | | (_| | (_) | (_| |
+  \_/\_/ \__,_|\__\___|_| |_|\__,_|\___/ \__, |
+                                         |___/
+`
 	EMOJI    = map[string]string{"sccwatchdog": "🐶"}
 	Historys = []History{
 		{Version: "0.1.0",
@@ -29,6 +37,11 @@ var (
 		},
 		{Version: "0.5.0",
 			Description: "watch -e : not watch expect deployments",
+		}, {Version: "0.5.1",
+			Description: "fix Context problem",
+		},
+		{Version: "0.6.0",
+			Description: "interactive client",
 		},
 	}
 )

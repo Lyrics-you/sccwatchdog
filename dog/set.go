@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-func SetDeploymentImage(namespace, deployment, container, image string) (string, error) {
+func setContainerImage(namespace, deployment, container, image string) (string, error) {
 	if namespace == "" {
 		namespace = "default"
 	}
@@ -30,4 +30,14 @@ func SetDeploymentImage(namespace, deployment, container, image string) (string,
 		return fmt.Sprintf("%s(%s) image not changed", deployment, container), nil
 	}
 	return string(out), nil
+}
+
+func SetDeploymentImage(namespace, deployment, container, image string) {
+	info, err := setContainerImage(namespace, deployment, container, image)
+	if err != nil {
+		log.Errorf("%v", err)
+		return
+	}
+	log.Infof("%s", info)
+	ShowDeployments(namespace, deployment)
 }

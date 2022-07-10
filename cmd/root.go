@@ -2,8 +2,10 @@ package cmd
 
 import (
 	"errors"
+	"sccwatchdog/cli"
 	"sccwatchdog/logger"
 
+	"github.com/desertbit/grumble"
 	"github.com/spf13/cobra"
 )
 
@@ -28,7 +30,11 @@ You can also restart deployment and set container image by it.`,
 			Error(cmd, args, errors.New("unrecognized command"))
 			return
 		}
-		showVersion()
+		if version == false {
+			grumble.Main(cli.App)
+		} else {
+			showVersion()
+		}
 	},
 }
 

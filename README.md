@@ -4,6 +4,8 @@ Sccwatchdog is a free and open source scc deployment watcher system,designed to 
 
 <img src=".\image-20220705143644713.png" alt="image-20220705143644713" style="zoom: 67%;" />
 
+<img src=".\image-20220710161715224.png" alt="image-20220710161715224" style="zoom: 67%;" />
+
 ## 参数
 
 `swd --help`
@@ -33,7 +35,7 @@ Flags:
 Use "swd [command] --help" for more information about a command.
 ```
 
-## version
+### version
 
 `swd version --help`
 
@@ -62,7 +64,7 @@ Version       : 0.5.0
 Description   : add restart deployment and set image function
 ```
 
-## show
+### show
 
 `swd show --help`
 
@@ -91,7 +93,7 @@ Global Flags:
 [mergemultx/mergemultx2: (loveyoutruehappy/mergemultx:v1.2) @ 2022-07-05 09:42:31 CST]
 ```
 
-## watch
+### watch
 
 `swd watch --help`
 
@@ -124,7 +126,7 @@ Global Flags:
 [22-07-05 14:45:36.483][dog/watch.go:49 @WatchStart()][INFO]mergemultx2 has restarted,loveyoutruehappy/mergemultx:v1.2 at 2022-07-05 14:45:31 CST,Deployment does not have minimum availability.
 ```
 
-## set
+### set
 
 `swd set --help`
 
@@ -153,7 +155,7 @@ Global Flags:
 [22-07-05 14:44:43.028][cmd/set.go:38 @setDeploymentImage()][INFO]deployment.apps/mergemultx1 image updated
 ```
 
-## restart
+### restart
 
 `swd restart --help`
 
@@ -180,3 +182,10 @@ Global Flags:
 [22-07-05 14:46:37.419][cmd/restart.go:37 @restartDeployment()][INFO]deployment.apps/mergemultx2 patched
 ```
 
+## 交互终端
+
+`swd`进入
+
+`select <namespace>`或者`into <namespace>`进入命名空间，默认default
+
+show/wath/set/restart参考==参数==部分，或者每个参数后加上`-h`进行查看无参的顺序。
