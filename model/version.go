@@ -42,6 +42,9 @@ __      ____ _| |_ ___| |__   __| | ___   __ _
 		},
 		{Version: "0.6.0",
 			Description: "interactive client",
+		}, {
+			Version:     "0.6.1",
+			Description: "fix splitImageInfo error",
 		},
 	}
 )

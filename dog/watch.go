@@ -14,12 +14,18 @@ var log = logger.Logger()
 func splitImageInfo(imageline string) []model.Image {
 	images := strings.Split(imageline, " ")
 	res := []model.Image{}
+	var name, version string
 	for _, image := range images {
 		sImage := strings.Split(image, ":")
 		i := sImage[0]
 		si := strings.Split(i, "/")
-		name := si[len(si)-1]
-		version := sImage[1]
+		if len(si) > 1 {
+			name = si[len(si)-1]
+			version = sImage[1]
+		} else {
+			name = "NotGetName"
+			version = "NotGetVersion"
+		}
 		res = append(res, model.Image{
 			Name:    name,
 			Version: version,
